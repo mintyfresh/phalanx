@@ -18,6 +18,7 @@ AllCops:
     - "db/*schema.rb"
     - 'spec/dummy/db/schema.rb'
     - 'spec/dummy/lib/permission.rb'
+    - 'sorbet/rbi/{annotations,dsl,gems}/**/*.rbi'
     - "vendor/**/*"
 
 FactoryBot/FactoryAssociationWithStrategy:
