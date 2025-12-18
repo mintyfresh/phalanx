@@ -1,0 +1,8 @@
+Description:
+    Installs Phalanx, creating a default initializer file.
+
+Example:
+    bin/rails generate phalanx:install
+
+    This will create:
+        config/initializers/phalanx.rb
