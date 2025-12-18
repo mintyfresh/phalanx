@@ -11,7 +11,7 @@ require_relative 'dummy/config/environment'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
-# Add additional requires below this line. Rails is not loaded until this point!
+require 'support/matchers/exclude_matcher'
 
 # Ensures that the test database schema matches the current schema file.
 # If there are pending migrations it will invoke `db:test:prepare` to
@@ -22,6 +22,11 @@ begin
 rescue ActiveRecord::PendingMigrationError => error
   abort error.to_s.strip
 end
+
+FactoryBot.definition_file_paths = [
+  File.expand_path('factories', __dir__),
+]
+FactoryBot.find_definitions
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
@@ -52,4 +57,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end

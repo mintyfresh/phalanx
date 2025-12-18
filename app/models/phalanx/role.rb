@@ -40,7 +40,7 @@ module Phalanx
 
     sig { returns(T::Array[Phalanx::Permission]) }
     def permissions
-      role_permissions.filter_map(&:permission)
+      role_permissions.reject(&:marked_for_destruction?).filter_map(&:permission)
     end
 
     sig { params(permissions: T::Enumerable[Phalanx::Permission]).void }

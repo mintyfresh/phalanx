@@ -14,6 +14,14 @@ module Phalanx
 
   autoload :MigrationExtensions, 'phalanx/migration_extensions'
 
+  PermissionClass = T.type_alias do
+    T.all(
+      T.class_of(T::Enum),
+      T::Class[Phalanx::Permission],
+      Phalanx::Permission::ClassMethods[Phalanx::Permission]
+    )
+  end
+
   sig { returns(Phalanx::Config) }
   def self.config
     @config ||= T.let(Phalanx::Config.new.freeze, T.nilable(Phalanx::Config))
@@ -31,7 +39,7 @@ module Phalanx
     config.permission_file_paths.flat_map { |path| Pathname.glob(path) }
   end
 
-  sig { returns(T.all(T::Class[Phalanx::Permission], Phalanx::Permission::ClassMethods[Phalanx::Permission])) }
+  sig { returns(PermissionClass) }
   def self.permission_class
     config.permission_class_name.safe_constantize or
       raise NotImplementedError, "Permission class #{config.permission_class_name.inspect} not found; " \

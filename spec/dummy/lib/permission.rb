@@ -40,7 +40,7 @@ class Permission < T::Enum
       :group_name => "User",
       :name => "Show any user",
       :description => "Allows the authenticated user to see any user's account",
-      :depends_on => "users.show.own",
+      :depends_on => nil,
     )
     # Allows the authenticated user to update any user's account
     USERS_UPDATE_ANY = new(

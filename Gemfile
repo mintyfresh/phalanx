@@ -19,6 +19,7 @@ gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
 gem 'rubocop-rspec_rails', require: false
 gem 'rubocop-sorbet', require: false
+gem 'shoulda-matchers'
 gem 'sorbet-static-and-runtime'
 gem 'sqlite3'
 gem 'tapioca', '~> 0.17.10'

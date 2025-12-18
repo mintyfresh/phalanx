@@ -29,6 +29,13 @@ module Phalanx
 
     validates :permission_id, presence: true
 
+    scope :stale, -> { where.not(permission_id: Phalanx.permission_class.values.map(&:id)) }
+
+    sig { returns(T::Boolean) }
+    def stale?
+      permission_id.present? && permission.nil?
+    end
+
     sig { returns(T.nilable(Phalanx::Permission)) }
     def permission
       Phalanx.permission_class[permission_id]

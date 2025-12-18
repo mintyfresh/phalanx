@@ -1,3 +1,6 @@
+# typed: false
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: phalanx_role_assignments
@@ -20,8 +23,8 @@
 #  role_id  (role_id => phalanx_roles.id)
 #
 FactoryBot.define do
-  factory :role_assignment do
-    role { nil }
-    role_assignable { nil }
+  factory :role_assignment, class: 'Phalanx::RoleAssignment' do
+    role
+    role_assignable factory: :user
   end
 end

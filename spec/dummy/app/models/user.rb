@@ -16,4 +16,8 @@ class User < ApplicationRecord
   include Phalanx::RoleAssignable
 
   has_assigned_roles
+
+  validates :email, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 end

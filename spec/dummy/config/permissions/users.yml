@@ -18,7 +18,6 @@ permissions:
   users.show.any:
     name: Show any user
     description: Allows the authenticated user to see any user's account
-    depends_on: users.show.own
   users.update.any:
     name: Update any user
     description: Allows the authenticated user to update any user's account

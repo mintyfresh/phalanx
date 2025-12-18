@@ -22,8 +22,12 @@
 #  role_id  (role_id => phalanx_roles.id)
 #
 FactoryBot.define do
-  factory :role_permission do
-    role { nil }
-    permission_id { 'MyString' }
+  factory :role_permission, class: 'Phalanx::RolePermission' do
+    role
+    permission { Phalanx.permission_class.values.sample }
+
+    trait :stale do
+      permission_id { 'non-existent-permission-id' }
+    end
   end
 end

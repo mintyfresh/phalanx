@@ -25,6 +25,20 @@ require 'rails_helper'
 
 module Phalanx
   RSpec.describe RolePermission, type: :model do
-    pending "add some examples to (or delete) #{__FILE__}"
+    subject(:role_permission) { build(:role_permission) }
+
+    it { is_expected.to be_valid }
+
+    it { is_expected.to belong_to(:role) }
+    it { is_expected.to validate_presence_of(:permission_id) }
+
+    it { is_expected.not_to be_stale }
+
+    context 'when the permission ID does not exist' do
+      subject(:role_permission) { build(:role_permission, permission_id: 'non-existent-permission-id') }
+
+      it { is_expected.to be_valid }
+      it { is_expected.to be_stale }
+    end
   end
 end

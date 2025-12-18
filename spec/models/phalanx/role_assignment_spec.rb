@@ -26,6 +26,11 @@ require 'rails_helper'
 
 module Phalanx
   RSpec.describe RoleAssignment, type: :model do
-    pending "add some examples to (or delete) #{__FILE__}"
+    subject(:role_assignment) { build(:role_assignment) }
+
+    it { is_expected.to be_valid }
+
+    it { is_expected.to belong_to(:role) }
+    it { is_expected.to belong_to(:role_assignable) }
   end
 end
