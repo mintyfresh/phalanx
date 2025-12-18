@@ -16,6 +16,7 @@ AllCops:
   Exclude:
     - "bin/*"
     - "db/*schema.rb"
+    - 'spec/dummy/lib/permission.rb'
     - "vendor/**/*"
 
 FactoryBot/FactoryAssociationWithStrategy:

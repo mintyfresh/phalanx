@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "name": "phalanx.PermissionGroup",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the permission group"
+    },
+    "permissions": {
+      "type": "object",
+      "description": "The permissions in the group",
+      "patternProperties": {
+        "^[a-z0-9_\\-]+(\\.[a-z0-9_\\-]+)*$": {
+          "type": "object",
+          "name": "phalanx.Permission",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name of the permission"
+            },
+            "description": {
+              "type": ["string", "null"],
+              "description": "The description of the permission"
+            },
+            "depends_on": {
+              "type": ["string", "null"],
+              "description": "The permission that this permission depends on"
+            }
+          },
+          "required": ["name"]
+        }
+      }
+    }
+  },
+  "required": ["name", "permissions"]
+}

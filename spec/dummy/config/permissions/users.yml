@@ -1,0 +1,29 @@
+---
+name: User
+permissions:
+  # Own account
+  users.show.own:
+    name: Show own user
+    description: Allows the authenticated user to see their own account
+  users.update.own:
+    name: Update own user
+    description: Allows the authenticated user to update their own account
+    depends_on: users.show.own
+  users.destroy.own:
+    name: Destroy own user
+    description: Allows the authenticated user to delete their own account
+    depends_on: users.update.own
+
+  # Non-own account
+  users.show.any:
+    name: Show any user
+    description: Allows the authenticated user to see any user's account
+    depends_on: users.show.own
+  users.update.any:
+    name: Update any user
+    description: Allows the authenticated user to update any user's account
+    depends_on: users.show.any
+  users.destroy.any:
+    name: Destroy any user
+    description: Allows the authenticated user to delete any user's account
+    depends_on: users.update.any
