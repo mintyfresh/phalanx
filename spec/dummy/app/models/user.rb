@@ -14,4 +14,6 @@
 #
 class User < ApplicationRecord
   include Phalanx::RoleAssignable
+
+  has_assigned_roles
 end
