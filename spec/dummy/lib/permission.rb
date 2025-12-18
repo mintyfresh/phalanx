@@ -12,6 +12,7 @@ class Permission < T::Enum
 
   enums do
     # Permissions for User
+
     # Allows the authenticated user to see their own account
     USERS_SHOW_OWN = new(
       id: "users.show.own",

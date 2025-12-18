@@ -15,12 +15,7 @@ module Phalanx
     sig { returns(T::Boolean) }
     def stale?
       file = Tempfile.new(['permission', '.rb'])
-
-      write_file_header(file)
-      write_class_definition(file)
-      write_enum_values(file)
-      write_class_footer(file)
-
+      write_file(file)
       file.flush
 
       !FileUtils.identical?(@output_path, T.must(file.path))
@@ -31,16 +26,20 @@ module Phalanx
     sig { void }
     def generate
       file = File.open(@output_path, 'w')
-
-      write_file_header(file)
-      write_class_definition(file)
-      write_enum_values(file)
-      write_class_footer(file)
+      write_file(file)
     ensure
       file&.close
     end
 
   private
+
+    sig { params(file: T.any(File, Tempfile)).void }
+    def write_file(file)
+      write_file_header(file)
+      write_class_definition(file)
+      write_enum_values(file)
+      write_class_footer(file)
+    end
 
     sig { params(file: T.any(File, Tempfile)).void }
     def write_file_header(file)
@@ -69,18 +68,16 @@ module Phalanx
     sig { params(file: T.any(File, Tempfile)).void }
     def write_enum_values(file)
       file.write("  enums do\n")
-      @permission_groups.each do |permission_group|
-        write_permission_group(file, permission_group)
+      @permission_groups.each_with_index do |permission_group, index|
+        file.write("    # Permissions for #{permission_group.name}\n\n")
+
+        permission_group.permissions.each do |permission|
+          write_permission(file, permission_group, permission)
+        end
+
+        file.write("\n") if index < @permission_groups.size - 1
       end
       file.write("  end\n")
-    end
-
-    sig { params(file: T.any(File, Tempfile), permission_group: Parser::PermissionGroup).void }
-    def write_permission_group(file, permission_group)
-      file.write("    # Permissions for #{permission_group.name}\n")
-      permission_group.permissions.each do |permission|
-        write_permission(file, permission_group, permission)
-      end
     end
 
     sig { params(file: T.any(File, Tempfile), permission_group: Parser::PermissionGroup, permission: Parser::Permission).void }
