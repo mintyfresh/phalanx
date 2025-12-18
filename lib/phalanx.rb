@@ -33,7 +33,9 @@ module Phalanx
 
   sig { returns(T.all(T::Class[Phalanx::Permission], Phalanx::Permission::ClassMethods[Phalanx::Permission])) }
   def self.permission_class
-    config.permission_class_name.constantize
+    config.permission_class_name.safe_constantize or
+      raise NotImplementedError, "Permission class #{config.permission_class_name.inspect} not found; " \
+                                 'have you run `rails phalanx:generate`?'
   end
 
   sig { void }

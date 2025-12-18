@@ -23,6 +23,9 @@ module Phalanx
     NAME_MAX_LENGTH = 50
     DESCRIPTION_MAX_LENGTH = 1000
 
+    has_many :role_assignments, class_name: 'Phalanx::RoleAssignment',
+                                dependent: :destroy, inverse_of: :role
+
     has_many :role_permissions, autosave: true, class_name: 'Phalanx::RolePermission',
                                 dependent: :destroy, inverse_of: :role
 
@@ -56,28 +59,6 @@ module Phalanx
 
       permission_ids.each do |permission_id|
         role_permissions.build(permission_id:)
-      end
-    end
-
-    sig { params(permission: Phalanx::Permission).void }
-    def grant_permission(permission)
-      role_permissions.build(permission_id: permission.id) unless has_permission?(permission)
-    end
-
-    sig { params(permission: Phalanx::Permission).void }
-    def revoke_permission(permission)
-      role_permission_for(permission)&.mark_for_destruction
-    end
-
-    sig { params(permission: Phalanx::Permission).returns(T::Boolean) }
-    def has_permission?(permission)
-      role_permission_for(permission).present?
-    end
-
-    sig { params(permission: Phalanx::Permission).returns(T.nilable(Phalanx::RolePermission)) }
-    def role_permission_for(permission)
-      role_permissions.find do |role_permission|
-        !role_permission.marked_for_destruction? && role_permission.permission_id == permission.id
       end
     end
   end

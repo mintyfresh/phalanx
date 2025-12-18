@@ -31,7 +31,7 @@ module Phalanx
 
     sig { returns(T.nilable(Phalanx::Permission)) }
     def permission
-      T.must(Phalanx.permission_class)[permission_id]
+      Phalanx.permission_class[permission_id]
     end
 
     sig { params(permission: Phalanx::Permission).void }

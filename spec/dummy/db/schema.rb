@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_17_232356) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_18_004311) do
+  create_table "phalanx_role_assignments", force: :cascade do |t|
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.bigint "role_assignable_id", null: false
+    t.string "role_assignable_type", null: false
+    t.bigint "role_id", null: false
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["role_assignable_type", "role_assignable_id"], name: "index_phalanx_role_assignments_on_role_assignable"
+    t.index ["role_id", "role_assignable_type", "role_assignable_id"], name: "idx_on_role_id_role_assignable_type_role_assignable_36ad7ae555", unique: true
+    t.index ["role_id"], name: "index_phalanx_role_assignments_on_role_id"
+  end
+
   create_table "phalanx_role_permissions", force: :cascade do |t|
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.string "permission_id", null: false
@@ -38,5 +49,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_17_232356) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "phalanx_role_assignments", "phalanx_roles", column: "role_id"
   add_foreign_key "phalanx_role_permissions", "phalanx_roles", column: "role_id"
 end
