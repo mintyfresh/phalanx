@@ -66,18 +66,18 @@ module Phalanx
     def permissions
       preload_roles_for_permissions_calculation!
 
-      roles = public_send(role_association_name)
+      association = public_send(role_association_name)
 
-      case roles
+      case association
       when ActiveRecord::Relation
-        roles.flat_map(&:permissions).to_set
+        association.flat_map(&:permissions).to_set
       when Phalanx::Role
-        roles.permissions.to_set
+        association.permissions.to_set
       when nil
         Set.new
       else
         raise TypeError, "expected #{role_association_name} to be an ActiveRecord::Relation, " \
-                         "Phalanx::Role, or nil (got #{roles.inspect})"
+                         "Phalanx::Role, or nil (got #{association.inspect})"
       end
     end
 
