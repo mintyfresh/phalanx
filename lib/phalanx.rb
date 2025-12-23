@@ -5,7 +5,9 @@ require 'phalanx/version'
 require 'phalanx/engine'
 
 require 'phalanx/config'
+require 'phalanx/error'
 require 'phalanx/generator'
+require 'phalanx/permission_not_found'
 require 'phalanx/parser'
 require 'phalanx/permission'
 

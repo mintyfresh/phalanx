@@ -16,7 +16,7 @@ class Permission < T::Enum
       :group_name => "User",
       :name => "Show own user",
       :description => "Allows the authenticated user to see their own account",
-      :depends_on => nil,
+      :implies => [],
     )
     # Allows the authenticated user to update their own account
     USERS_UPDATE_OWN = new(
@@ -24,7 +24,7 @@ class Permission < T::Enum
       :group_name => "User",
       :name => "Update own user",
       :description => "Allows the authenticated user to update their own account",
-      :depends_on => "users.show.own",
+      :implies => ["users.show.own"],
     )
     # Allows the authenticated user to delete their own account
     USERS_DESTROY_OWN = new(
@@ -32,7 +32,7 @@ class Permission < T::Enum
       :group_name => "User",
       :name => "Destroy own user",
       :description => "Allows the authenticated user to delete their own account",
-      :depends_on => "users.update.own",
+      :implies => ["users.update.own"],
     )
     # Allows the authenticated user to see any user's account
     USERS_SHOW_ANY = new(
@@ -40,7 +40,7 @@ class Permission < T::Enum
       :group_name => "User",
       :name => "Show any user",
       :description => "Allows the authenticated user to see any user's account",
-      :depends_on => nil,
+      :implies => ["users.show.own"],
     )
     # Allows the authenticated user to update any user's account
     USERS_UPDATE_ANY = new(
@@ -48,7 +48,7 @@ class Permission < T::Enum
       :group_name => "User",
       :name => "Update any user",
       :description => "Allows the authenticated user to update any user's account",
-      :depends_on => "users.show.any",
+      :implies => ["users.show.any", "users.update.own"],
     )
     # Allows the authenticated user to delete any user's account
     USERS_DESTROY_ANY = new(
@@ -56,7 +56,7 @@ class Permission < T::Enum
       :group_name => "User",
       :name => "Destroy any user",
       :description => "Allows the authenticated user to delete any user's account",
-      :depends_on => "users.update.any",
+      :implies => ["users.update.any", "users.destroy.own"],
     )
 
   end

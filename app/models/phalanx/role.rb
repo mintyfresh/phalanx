@@ -45,7 +45,7 @@ module Phalanx
 
     sig { params(permissions: T::Enumerable[Phalanx::Permission]).void }
     def permissions=(permissions)
-      permission_ids = permissions.flat_map(&:with_dependent_permissions).to_set(&:id)
+      permission_ids = permissions.flat_map(&:with_implied_permissions).to_set(&:id)
 
       role_permissions.each do |role_permission|
         next if role_permission.marked_for_destruction?

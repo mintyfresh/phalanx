@@ -33,7 +33,7 @@ module Phalanx
       subject(:permissions) { role.permissions }
 
       let(:role) { build(:role, permissions: permissions_list) }
-      let(:permissions_list) { Phalanx.permission_class.values.sample(3).flat_map(&:with_dependent_permissions).uniq }
+      let(:permissions_list) { Phalanx.permission_class.values.sample(3).flat_map(&:with_implied_permissions).uniq }
 
       it { is_expected.to match_array(permissions_list) }
 

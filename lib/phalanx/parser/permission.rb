@@ -9,7 +9,7 @@ module Phalanx
       const :id, String
       const :name, String
       const :description, T.nilable(String)
-      const :depends_on, T.nilable(String)
+      const :implies, T::Array[String]
 
       sig { returns(String) }
       def constant_name

@@ -23,9 +23,22 @@
               "type": ["string", "null"],
               "description": "The description of the permission"
             },
-            "depends_on": {
-              "type": ["string", "null"],
-              "description": "The permission that this permission depends on"
+            "implies": {
+              "description": "The seto of permission that having this permission implies",
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": ["name"]

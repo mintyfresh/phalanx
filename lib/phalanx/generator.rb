@@ -80,7 +80,7 @@ module Phalanx
             group_name: permission_group.name,
             name: permission.name,
             description: permission.description,
-            depends_on: permission.depends_on,
+            implies: permission.implies,
           }
         )
       end

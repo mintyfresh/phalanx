@@ -8,21 +8,26 @@ permissions:
   users.update.own:
     name: Update own user
     description: Allows the authenticated user to update their own account
-    depends_on: users.show.own
+    implies: users.show.own
   users.destroy.own:
     name: Destroy own user
     description: Allows the authenticated user to delete their own account
-    depends_on: users.update.own
+    implies: users.update.own
 
   # Non-own account
   users.show.any:
     name: Show any user
     description: Allows the authenticated user to see any user's account
+    implies: users.show.own
   users.update.any:
     name: Update any user
     description: Allows the authenticated user to update any user's account
-    depends_on: users.show.any
+    implies:
+      - users.show.any
+      - users.update.own
   users.destroy.any:
     name: Destroy any user
     description: Allows the authenticated user to delete any user's account
-    depends_on: users.update.any
+    implies:
+      - users.update.any
+      - users.destroy.own
