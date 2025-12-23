@@ -6,6 +6,34 @@ require 'spec_helper'
 RSpec.describe Phalanx::Permission do
   subject(:permission) { Permission::USERS_SHOW_OWN }
 
+  describe '.find' do
+    subject(:find) { Permission.find(id) }
+
+    let(:id) { 'users.show.own' }
+
+    it { is_expected.to eq(Permission::USERS_SHOW_OWN) }
+
+    context 'with an invalid ID' do
+      let(:id) { 'users.show.invalid' }
+
+      it { expect { find }.to raise_error(Phalanx::PermissionNotFound, 'Permission with id "users.show.invalid" not found') }
+    end
+  end
+
+  describe '[]' do
+    subject { Permission[id] }
+
+    let(:id) { 'users.show.own' }
+
+    it { is_expected.to eq(Permission::USERS_SHOW_OWN) }
+
+    context 'with an invalid ID' do
+      let(:id) { 'users.show.invalid' }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe '#id' do
     subject(:id) { permission.id }
 
