@@ -16,6 +16,15 @@ module Phalanx
                                         dependent: :destroy, inverse_of: :assignable
     end
 
+    class_methods do
+      extend T::Sig
+
+      sig { params(scopes: String).void }
+      def permitted_permission_scopes(*scopes)
+        define_method(:permitted_permission_scopes) { scopes }
+      end
+    end
+
     sig { returns(T::Set[Phalanx::Permission]) }
     def permissions
       T.unsafe(self).permission_assignments
