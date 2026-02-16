@@ -8,6 +8,7 @@ module Phalanx
 
       const :id, String
       const :name, String
+      const :scope, T.nilable(String)
       const :description, T.nilable(String)
       const :implies, T::Array[String]
 

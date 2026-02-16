@@ -32,14 +32,16 @@ module Phalanx
 
   private
 
-    sig { params(permission_data: T::Hash[String, T.untyped]).returns(PermissionGroup) }
-    def build_permission_group(permission_data)
+    sig { params(group_data: T::Hash[String, T.untyped]).returns(PermissionGroup) }
+    def build_permission_group(group_data)
       PermissionGroup.new(
-        name: permission_data['name'],
-        permissions: permission_data['permissions'].map do |permission_id, permission_data|
+        subject: group_data['subject'],
+        scope: group_data['scope'],
+        permissions: group_data['permissions'].map do |permission_id, permission_data|
           Permission.new(
             id: permission_id,
             name: permission_data['name'],
+            scope: permission_data['scope'] || group_data['scope'],
             description: permission_data['description'],
             implies: [*permission_data['implies']]
           )

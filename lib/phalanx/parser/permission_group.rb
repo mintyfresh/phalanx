@@ -4,7 +4,8 @@
 module Phalanx
   class Parser
     class PermissionGroup < T::Struct
-      const :name, String
+      const :subject, String
+      const :scope, T.nilable(String)
       const :permissions, T::Array[Parser::Permission]
     end
   end

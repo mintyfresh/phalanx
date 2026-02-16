@@ -70,15 +70,16 @@ module Phalanx
 
     sig { params(dsl: DSL, permission_group: Parser::PermissionGroup).returns(DSL) }
     def generate_enums_values_for_permission_group(dsl, permission_group)
-      dsl.comment("Permissions for #{permission_group.name}")
+      dsl.comment("Permissions for #{permission_group.subject}")
       dsl.newline
       permission_group.permissions.each do |permission|
         dsl.comment(T.must(permission.description).squish) if permission.description.present?
         dsl.enum(
           permission.constant_name, {
             id: permission.id,
-            group_name: permission_group.name,
+            subject: permission_group.subject,
             name: permission.name,
+            scope: permission.scope,
             description: permission.description,
             implies: permission.implies,
           }

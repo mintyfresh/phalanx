@@ -3,9 +3,13 @@
   "type": "object",
   "name": "phalanx.PermissionGroup",
   "properties": {
-    "name": {
+    "subject": {
       "type": "string",
-      "description": "The name of the permission group"
+      "description": "The subject of this permission group"
+    },
+    "scope": {
+      "type": ["string", "null"],
+      "description": "An optional default scope for permissions in this group"
     },
     "permissions": {
       "type": "object",
@@ -18,6 +22,10 @@
             "name": {
               "type": "string",
               "description": "The name of the permission"
+            },
+            "scope": {
+              "type": ["string", "null"],
+              "description": "An optional scope for this permission"
             },
             "description": {
               "type": ["string", "null"],
@@ -46,5 +54,5 @@
       }
     }
   },
-  "required": ["name", "permissions"]
+  "required": ["subject", "permissions"]
 }

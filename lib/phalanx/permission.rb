@@ -24,11 +24,11 @@ module Phalanx
         )
       end
 
-      # An index of all permissions mapped by their group name.
+      # An index of all permissions mapped by their subject.
       sig { returns(T::Hash[String, T::Array[T.attached_class]]) }
-      def permissions_by_group_name
-        @permissions_by_group_name ||= T.let(
-          T.unsafe(self).values.group_by(&:group_name).freeze,
+      def permissions_by_subject
+        @permissions_by_subject ||= T.let(
+          T.unsafe(self).values.group_by(&:subject).freeze,
           T.nilable(T::Hash[String, T::Array[T.attached_class]])
         )
       end
@@ -70,11 +70,18 @@ module Phalanx
       serialize[:id]
     end
 
-    # The name of the group that the permission belongs to.
+    # The subject that the permission belongs to.
     # e.g. A model name ("User", "Post", "Comment") or a application area ("Dashboard", "Admin", "API")
     sig { returns(String) }
-    def group_name
-      serialize[:group_name]
+    def subject
+      serialize[:subject]
+    end
+
+    # The scope that the permission is part of.
+    # Useful when working with multiple distinct sets of permissions (e.g. Global vs. Subject-specific).
+    sig { returns(T.nilable(String)) }
+    def scope
+      serialize[:scope]
     end
 
     # A human-readable name of the permission.

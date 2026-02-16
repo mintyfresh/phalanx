@@ -1,5 +1,6 @@
 ---
-name: User
+subject: User
+scope: User
 permissions:
   # Own account
   users.show.own:

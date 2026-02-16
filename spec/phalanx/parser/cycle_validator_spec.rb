@@ -13,7 +13,7 @@ RSpec.describe Phalanx::Parser::CycleValidator do
       let(:permission_groups) do
         [
           build_permission_group(
-            name: 'Users',
+            subject: 'Users',
             permissions: [
               build_permission(id: 'users.read'),
               build_permission(id: 'users.write', implies: ['users.read']),
@@ -32,7 +32,7 @@ RSpec.describe Phalanx::Parser::CycleValidator do
       let(:permission_groups) do
         [
           build_permission_group(
-            name: 'Users',
+            subject: 'Users',
             permissions: [
               build_permission(id: 'users.read'),
               build_permission(id: 'users.write'),
@@ -51,7 +51,7 @@ RSpec.describe Phalanx::Parser::CycleValidator do
       let(:permission_groups) do
         [
           build_permission_group(
-            name: 'Users',
+            subject: 'Users',
             permissions: [
               build_permission(id: 'users.read', implies: ['users.read']),
             ]
@@ -74,7 +74,7 @@ RSpec.describe Phalanx::Parser::CycleValidator do
       let(:permission_groups) do
         [
           build_permission_group(
-            name: 'Users',
+            subject: 'Users',
             permissions: [
               build_permission(id: 'users.read', implies: ['users.write']),
               build_permission(id: 'users.write', implies: ['users.read']),
@@ -99,7 +99,7 @@ RSpec.describe Phalanx::Parser::CycleValidator do
       let(:permission_groups) do
         [
           build_permission_group(
-            name: 'Users',
+            subject: 'Users',
             permissions: [
               build_permission(id: 'a', implies: ['b']),
               build_permission(id: 'b', implies: ['c']),
@@ -126,14 +126,14 @@ RSpec.describe Phalanx::Parser::CycleValidator do
       let(:permission_groups) do
         [
           build_permission_group(
-            name: 'Group1',
+            subject: 'Group1',
             permissions: [
               build_permission(id: 'a', implies: ['b']),
               build_permission(id: 'b', implies: ['a']),
             ]
           ),
           build_permission_group(
-            name: 'Group2',
+            subject: 'Group2',
             permissions: [
               build_permission(id: 'x', implies: ['y']),
               build_permission(id: 'y', implies: ['x']),
@@ -157,7 +157,7 @@ RSpec.describe Phalanx::Parser::CycleValidator do
       let(:permission_groups) do
         [
           build_permission_group(
-            name: 'Complex',
+            subject: 'Complex',
             permissions: [
               build_permission(id: 'a', implies: ['b']),
               build_permission(id: 'b', implies: %w[c d]),
@@ -183,13 +183,13 @@ RSpec.describe Phalanx::Parser::CycleValidator do
       let(:permission_groups) do
         [
           build_permission_group(
-            name: 'Users',
+            subject: 'Users',
             permissions: [
               build_permission(id: 'users.admin', implies: ['posts.admin']),
             ]
           ),
           build_permission_group(
-            name: 'Posts',
+            subject: 'Posts',
             permissions: [
               build_permission(id: 'posts.admin', implies: ['users.admin']),
             ]

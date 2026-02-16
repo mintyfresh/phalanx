@@ -40,8 +40,14 @@ RSpec.describe Phalanx::Permission do
     it { is_expected.to eq('users.show.own') }
   end
 
-  describe '#group_name' do
-    subject(:group_name) { permission.group_name }
+  describe '#subject' do
+    subject(:subject) { permission.subject }
+
+    it { is_expected.to eq('User') }
+  end
+
+  describe '#scope' do
+    subject(:scope) { permission.scope }
 
     it { is_expected.to eq('User') }
   end

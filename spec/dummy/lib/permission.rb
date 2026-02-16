@@ -13,48 +13,54 @@ class Permission < T::Enum
     # Allows the authenticated user to see their own account
     USERS_SHOW_OWN = new(
       :id => "users.show.own",
-      :group_name => "User",
+      :subject => "User",
       :name => "Show own user",
+      :scope => "User",
       :description => "Allows the authenticated user to see their own account",
       :implies => [],
     )
     # Allows the authenticated user to update their own account
     USERS_UPDATE_OWN = new(
       :id => "users.update.own",
-      :group_name => "User",
+      :subject => "User",
       :name => "Update own user",
+      :scope => "User",
       :description => "Allows the authenticated user to update their own account",
       :implies => ["users.show.own"],
     )
     # Allows the authenticated user to delete their own account
     USERS_DESTROY_OWN = new(
       :id => "users.destroy.own",
-      :group_name => "User",
+      :subject => "User",
       :name => "Destroy own user",
+      :scope => "User",
       :description => "Allows the authenticated user to delete their own account",
       :implies => ["users.update.own"],
     )
     # Allows the authenticated user to see any user's account
     USERS_SHOW_ANY = new(
       :id => "users.show.any",
-      :group_name => "User",
+      :subject => "User",
       :name => "Show any user",
+      :scope => "User",
       :description => "Allows the authenticated user to see any user's account",
       :implies => ["users.show.own"],
     )
     # Allows the authenticated user to update any user's account
     USERS_UPDATE_ANY = new(
       :id => "users.update.any",
-      :group_name => "User",
+      :subject => "User",
       :name => "Update any user",
+      :scope => "User",
       :description => "Allows the authenticated user to update any user's account",
       :implies => ["users.show.any", "users.update.own"],
     )
     # Allows the authenticated user to delete any user's account
     USERS_DESTROY_ANY = new(
       :id => "users.destroy.any",
-      :group_name => "User",
+      :subject => "User",
       :name => "Destroy any user",
+      :scope => "User",
       :description => "Allows the authenticated user to delete any user's account",
       :implies => ["users.update.any", "users.destroy.own"],
     )
