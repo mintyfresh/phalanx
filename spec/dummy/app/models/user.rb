@@ -13,9 +13,8 @@
 #  updated_at :datetime         not null
 #
 class User < ApplicationRecord
-  include Phalanx::RoleAssignable
-
-  has_assigned_roles
+  has_many :role_assignments, as: :role_assignable, dependent: :destroy, inverse_of: :role_assignable
+  has_many :roles, through: :role_assignments
 
   validates :email, presence: true
   validates :first_name, presence: true

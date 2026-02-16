@@ -10,35 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_18_004311) do
-  create_table "phalanx_role_assignments", force: :cascade do |t|
-    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
-    t.bigint "role_assignable_id", null: false
-    t.string "role_assignable_type", null: false
-    t.bigint "role_id", null: false
-    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
-    t.index ["role_assignable_type", "role_assignable_id"], name: "index_phalanx_role_assignments_on_role_assignable"
-    t.index ["role_id", "role_assignable_type", "role_assignable_id"], name: "idx_on_role_id_role_assignable_type_role_assignable_36ad7ae555", unique: true
-    t.index ["role_id"], name: "index_phalanx_role_assignments_on_role_id"
-  end
-
-  create_table "phalanx_role_permissions", force: :cascade do |t|
+ActiveRecord::Schema[8.1].define(version: 2026_02_16_224810) do
+  create_table "phalanx_permission_assignments", force: :cascade do |t|
+    t.bigint "assignable_id", null: false
+    t.string "assignable_type", null: false
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.string "permission_id", null: false
-    t.bigint "role_id", null: false
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
-    t.index ["permission_id"], name: "index_phalanx_role_permissions_on_permission_id"
-    t.index ["role_id", "permission_id"], name: "index_phalanx_role_permissions_on_role_id_and_permission_id", unique: true
-    t.index ["role_id"], name: "index_phalanx_role_permissions_on_role_id"
+    t.index ["assignable_type", "assignable_id", "permission_id"], name: "idx_on_assignable_type_assignable_id_permission_id_db35db88c3", unique: true
+    t.index ["assignable_type", "assignable_id"], name: "index_phalanx_permission_assignments_on_assignable"
+    t.index ["permission_id"], name: "index_phalanx_permission_assignments_on_permission_id"
   end
 
-  create_table "phalanx_roles", force: :cascade do |t|
+  create_table "role_assignments", force: :cascade do |t|
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.integer "role_assignable_id", null: false
+    t.string "role_assignable_type", null: false
+    t.integer "role_id", null: false
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["role_assignable_type", "role_assignable_id"], name: "index_role_assignments_on_role_assignable"
+    t.index ["role_id", "role_assignable_type", "role_assignable_id"], name: "idx_on_role_id_role_assignable_type_role_assignable_e2205e613b", unique: true
+    t.index ["role_id"], name: "index_role_assignments_on_role_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.string "description"
     t.string "name", null: false
     t.boolean "system", default: false, null: false
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
-    t.index ["name"], name: "index_phalanx_roles_on_name", unique: true
+    t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,6 +50,5 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_18_004311) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "phalanx_role_assignments", "phalanx_roles", column: "role_id"
-  add_foreign_key "phalanx_role_permissions", "phalanx_roles", column: "role_id"
+  add_foreign_key "role_assignments", "roles"
 end

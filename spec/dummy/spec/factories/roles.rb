@@ -3,7 +3,7 @@
 
 # == Schema Information
 #
-# Table name: phalanx_roles
+# Table name: roles
 #
 #  id          :integer          not null, primary key
 #  description :string
@@ -14,19 +14,12 @@
 #
 # Indexes
 #
-#  index_phalanx_roles_on_name  (name) UNIQUE
+#  index_roles_on_name  (name) UNIQUE
 #
 FactoryBot.define do
-  factory :role, class: 'Phalanx::Role' do
-    sequence(:name) { |i| "role_#{i}" }
-    description { Faker::Hipster.sentence }
-
-    trait :system do
-      system { true }
-    end
-
-    trait :user_defined do
-      system { false }
-    end
+  factory :role do
+    sequence(:name) { |n| "#{Faker::Lorem.word }-#{n}" }
+    description { Faker::Lorem.sentence }
+    system { false }
   end
 end

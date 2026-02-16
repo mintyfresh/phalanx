@@ -369,10 +369,10 @@ class User
 
     # This method is created by ActiveRecord on the `User` class because it declared `has_many :role_assignments`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(::Phalanx::RoleAssignment::PrivateCollectionProxy) }
+    sig { returns(::RoleAssignment::PrivateCollectionProxy) }
     def role_assignments; end
 
-    sig { params(value: T::Enumerable[::Phalanx::RoleAssignment]).void }
+    sig { params(value: T::Enumerable[::RoleAssignment]).void }
     def role_assignments=(value); end
 
     sig { returns(T::Array[T.untyped]) }
@@ -383,10 +383,10 @@ class User
 
     # This method is created by ActiveRecord on the `User` class because it declared `has_many :roles, through: :role_assignments`.
     # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
-    sig { returns(::Phalanx::Role::PrivateCollectionProxy) }
+    sig { returns(::Role::PrivateCollectionProxy) }
     def roles; end
 
-    sig { params(value: T::Enumerable[::Phalanx::Role]).void }
+    sig { params(value: T::Enumerable[::Role]).void }
     def roles=(value); end
   end
 
@@ -527,9 +527,6 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def with_assigned_permissions(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with_recursive(*args, &blk); end
@@ -1076,9 +1073,6 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def with_assigned_permissions(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with_recursive(*args, &blk); end
