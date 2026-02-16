@@ -16,7 +16,7 @@ module Phalanx
                                         dependent: :destroy, inverse_of: :assignable
     end
 
-    class_methods do
+    module ClassMethods
       extend T::Sig
 
       sig { params(scopes: String).void }
@@ -25,6 +25,8 @@ module Phalanx
         define_method(:permitted_permission_scopes) { scopes }
       end
     end
+
+    mixes_in_class_methods ClassMethods
 
     sig { returns(T::Set[Phalanx::Permission]) }
     def permissions
