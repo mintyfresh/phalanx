@@ -21,6 +21,7 @@ module Phalanx
 
       sig { params(scopes: String).void }
       def permitted_permission_scopes(*scopes)
+        T.bind(self, T.class_of(ActiveRecord::Base))
         define_method(:permitted_permission_scopes) { scopes }
       end
     end
