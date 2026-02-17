@@ -38,7 +38,7 @@ RSpec.describe Role, type: :model do
     end
 
     it 'excludes stale permissions' do
-      stale_permission = build(:permission_assignment, :stale, assignable: role, permission_id: 'users.show.any')
+      stale_permission = build(:permission_assignment, :stale, assignable: role)
       role.permission_assignments << stale_permission
       expect(permissions.map(&:id)).to exclude(stale_permission.permission_id)
     end

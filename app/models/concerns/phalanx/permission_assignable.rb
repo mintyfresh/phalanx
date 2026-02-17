@@ -30,8 +30,8 @@ module Phalanx
 
     sig { returns(T::Set[Phalanx::Permission]) }
     def permissions
-      T.unsafe(self).permission_assignments
-        .reject(&:marked_for_destruction?)
+      T.let(T.unsafe(self).permission_assignments, T::Enumerable[Phalanx::PermissionAssignment])
+        .reject { |assignment| assignment.marked_for_destruction? || !assignment.permission_scope_supported? }
         .filter_map(&:permission)
         .flat_map(&:with_implied_permissions)
         .to_set
@@ -64,6 +64,16 @@ module Phalanx
     sig { overridable.returns(T.nilable(T.any(String, T::Enumerable[String]))) }
     def permitted_permission_scopes
       nil
+    end
+
+    sig { params(scope: String).returns(T::Boolean) }
+    def permission_scope_supported?(scope)
+      case (scopes = permitted_permission_scopes)
+      when Enumerable then scopes.include?(scope)
+      when String then scopes == scope
+      when nil then true
+      else T.absurd(scopes)
+      end
     end
   end
 end

@@ -45,20 +45,21 @@ module Phalanx
       self.permission_id = permission.id
     end
 
+    sig { returns(T::Boolean) }
+    def permission_scope_supported?
+      return false if (assignable = self.assignable).nil? || (permission = self.permission).nil?
+
+      assignable.permission_scope_supported?(permission.scope)
+    end
+
   private
 
     sig { void }
     def permission_must_have_supported_permission_scope
       return if (assignable = self.assignable).nil? || (permission = self.permission).nil?
-      return if (scopes = assignable.permitted_permission_scopes).nil?
+      return if permission_scope_supported?
 
-      scopes = [*scopes]
-      return if scopes.include?(permission.scope)
-
-      errors.add(
-        :permission, :unsupported_permission_scope,
-        scope: permission.scope, permitted_scopes: scopes.join(', ')
-      )
+      errors.add(:permission, :unsupported_permission_scope, scope: permission.scope)
     end
   end
 end
