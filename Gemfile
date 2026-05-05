@@ -22,4 +22,4 @@ gem 'rubocop-sorbet', require: false
 gem 'shoulda-matchers'
 gem 'sorbet-static-and-runtime'
 gem 'sqlite3'
-gem 'tapioca', '~> 0.17.10'
+gem 'tapioca', '~> 0.19.1'
